@@ -1,21 +1,21 @@
-const {Schema, model, Types} = require('mongoose')
-
+const { Schema, model, Types } = require('mongoose');
 const schema = new Schema({
-    id:{
-        type: Types.ObjectId,
-    },
-    name: {
-        type: String
-    },
-    slug:{
-        type: String,
-    },
-    parent_id:{
-        type: Types.ObjectId,
-    },
-    description:{
-        type: String,
-    },
+  title: {
+    type: String,
+    required: [true, 'Please enter category title']
+  },
+  description: String,
+  slug: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  parent: {
+    type: Types.ObjectId,
+    ref: 'Category'
+  }
 })
 
-module.exports = {CategoryModel: model('ecommerce',schema)}
+module.exports = {
+  CategoryModel: model('Category', schema),
+}
