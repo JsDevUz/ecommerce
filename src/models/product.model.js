@@ -1,37 +1,43 @@
-const {Schema, model, Types} = require('mongoose')
+const { Schema, model, Types } = require('mongoose');
 
 const schema = new Schema({
-    _id:{
-        type: Types.ObjectId
-    },
-    name:{
-        type: String
-    },
-    sku:{
-        type: String
-    },
-    description:{
-        type: String
-    },
-    slug:{
-        type: String
-    },
-    detail:{
-        type: Object
-    },
-    total_reviews:{
-        type: Number
-    },
-    price:{
-        type: Number
-    },
-    category:{
-        type: Types.ObjectId
-    },
-    tags:[{
-        type: String
-    }]
+  name: {
+    type: String,
+    required: true,
+  },
+  sku: {
+    type: String,
+    required: true
+  },
+  description: String,
+  slug: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  details: {
+    weight: Number,
+    weight_units: String,
+    manufacturer: String,
+    color: String,
+  },
+  total_reviews: Number,
+  price: {
+    type: Number,
+    required: true
+  },
+  category: {
+    type: Types.ObjectId,
+    ref: 'Category'
+  },
+  tags: [{ type: String }],
+  quantity: Number,
+  created_at: {
+    type: Date,
+    default: Date.now
+  }
 })
 
-
-module.exports = {ProductModel: model('ecommerce',schema)}
+module.exports = {
+  ProductModel: model('Product', schema)
+}
